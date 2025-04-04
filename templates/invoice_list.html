@@ -1,0 +1,100 @@
+<!-- invoice.html -->
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden" style="max-width: 88rem">
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-4 text-white">
+        <h1 class="text-2xl font-bold">InvoiceGenius</h1>
+    </div>
+    <div class="p-4 space-y-4" style="max-height: 500px; overflow-x: auto; overflow-y: auto; border: 1px solid #ccc;">
+        <table style="border: 2px solid; width: 100%; min-width: 1200px;">
+            <thead>
+                <tr style="background: cornflowerblue">
+                    <th style="padding: 13px; width: 150px;">invoice_name</th>
+                    <th style="padding: 13px; width: 100px;">invoice_no.</th>
+                    <th style="padding: 13px; width: 180px;">date</th>
+                    <th style="padding: 13px; width: 160px;">business_name</th>
+                    <th style="padding: 13px; width: 180px;">business_email</th>
+                    <th style="padding: 13px; width: 180px;">item_description</th>
+                    <th style="padding: 13px; width: 90px;">item_quantity</th>
+                    <th style="padding: 13px; width: 90px;">item_price</th>
+                    <th style="padding: 13px; width: 130px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in res %}
+                <tr>
+                    <td style="padding: 13px;">{{ i[1] }}</td>
+                    <td style="padding: 13px;">{{ i[2] }}</td>
+                    <td style="padding: 13px;">{{ i[3] }}</td>
+                    <td style="padding: 13px;">{{ i[4] }}</td>
+                    <td style="padding: 13px;">{{ i[5] }}</td>
+                    <td style="padding: 13px;">{{ i[6] }}</td>
+                    <td style="padding: 13px;">{{ i[7] }}</td>
+                    <td style="padding: 13px;">{{ i[8] }}</td>
+                    <td style="padding: 13px;">
+                        <form action="/invoice" method="post" style="display: inline;">
+                            <input type="hidden" value="{{ i[0] }}" name="invoice_id" id="invoice_id">
+                            <button class="font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform" style="color: green;" type="submit">View</button>
+                        </form>
+                        <a style="padding: 11px; color: red;" class="font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform" href="/delete/{{ i[0] }}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    
+    
+    <!-- <form method="POST" enctype="multipart/form-data" class="p-4 space-y-4" >
+        <div class="grid grid-cols-2 gap-3">
+            <input class="p-2 border rounded" name="invoice_name" type="text" placeholder="Invoice Name" required>
+            <input class="p-2 border rounded" name="invoice_number" type="text" placeholder="Invoice Number (e.g., INV-001)" required>
+            <div>
+                <input class="p-2 border rounded w-full" name="date" type="date" required>
+                <p class="text-xs text-gray-600 mt-1">Invoice Date: The date the invoice is issued</p>
+            </div>
+            
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3">
+            <div>
+                <h3 class="text-sm font-semibold mb-1 text-indigo-600">Your Business</h3>
+                <input class="w-full p-2 border rounded mb-1" name="business_name" type="text" placeholder="Business Name" required>
+                <textarea class="w-full p-2 border rounded mb-1" name="business_address" placeholder="Business Address" rows="2" required></textarea>
+                <input class="w-full p-2 border rounded mb-1" name="business_phone" type="tel" placeholder="Phone Number" required>
+                <input class="w-full p-2 border rounded" name="business_email" type="email" placeholder="Business Email" required>
+            </div>
+            
+        </div>
+        
+        <div>
+            <h3 class="text-sm font-semibold mb-1 text-indigo-600">Invoice Items</h3>
+            <div id="items-container">
+                <div class="flex space-x-2 mb-2 items-center">
+                    <input type="text" name="item_description_1" placeholder="Description" class="flex-grow p-1 border rounded text-sm" required>
+                    <input type="number" name="item_quantity_1" placeholder="Qty" class="w-16 p-1 border rounded text-sm" required>
+                    <input type="number" name="item_price_1" placeholder="Price" step="0.01" class="w-20 p-1 border rounded text-sm" required>
+                    <button type="button" onclick="removeItem(this)" class="bg-red-500 hover:bg-red-600 text-white w-6 h-6 rounded-full flex items-center justify-center focus:outline-none">
+                        X
+                    </button>
+                </div>
+            </div>
+             <button type="button" onclick="addItem()" class="text-sm bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-2 rounded">
+                + Add Item
+            </button> 
+        </div>
+        <div class="text-center">
+            <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105" type="submit">
+                Generate Invoice
+            </button>
+        </div>
+    </form> -->
+</div>
+
+
+
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+{% endblock %}
